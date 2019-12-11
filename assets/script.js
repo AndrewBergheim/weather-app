@@ -1,3 +1,5 @@
+
+// search function
 function searchFunction(city){
     // parameter variable initialization
     let temperature;
@@ -31,15 +33,21 @@ function searchFunction(city){
             $("#current-UV").text(uvIndex)
         })
     }
-
-    /* save data to local storage
+   
+    if (citiesArray !== null && citiesArray.indexOf(city) == -1){
+    // add search history div for this city
+        let newDiv = $("<div>").attr("class", "history-button");
+        newDiv.text(city);
+        $("#history-div").prepend(newDiv);
     //push city to cities array
     citiesArray.push(city);
+    }
+    //save data to local storage
     // save search history to local storage
-    localStorage.setItem("searchHistory", citiesArray)
+    localStorage.setItem("searchHistory", JSON.stringify(citiesArray))
     // save city as last searched
     localStorage.setItem("lastSearch", city)
-    */
+    
 
     //now make the actual ajax request
     $.ajax({
@@ -100,8 +108,35 @@ function searchFunction(city){
     
 }
 
+// local storage page initialization
+if (localStorage.getItem("searchHistory") == null){
+    // initialize empty variable with global scope to be used later 
+    var citiesArray = [];
+}else{
+    // initialize array containing search history, then iterate through it to add the history to the page
+    var citiesArray = JSON.parse((localStorage.getItem("searchHistory")))
+    for (let i = 0; i< citiesArray.length; i++){
+        let newDiv = $("<div>").attr("class", "history-button");
+        newDiv.text(citiesArray[i]);
+        $("#history-div").prepend(newDiv);
+    }
+}
+
+if (localStorage.getItem("lastSearch") !== null){
+ // search for most recent searched city
+    let lastSearch = localStorage.getItem("lastSearch")
+    searchFunction(lastSearch)   
+}
+
+// Event listeners
 $("#search-button").on("click", function(){
     let city = $("#search-text").val()
+    searchFunction(city)  
+});
+
+
+$(".history-button").on("click", function(){
+    let city = $(this).val()
     searchFunction(city)  
 });
 
