@@ -5,6 +5,7 @@ $("#search-button").on("click", function(){
     let humidity;
     let windSpeed;
     let uvIndex;
+    date = new Date()
     //geo variable init
     let lat;
     let long;
@@ -22,6 +23,8 @@ $("#search-button").on("click", function(){
         }).then(function(response){
             console.log(response);
             uvIndex = response.value;
+            $("#current-UV").text(uvIndex)
+            $
         })
     }
     //now make the actual ajax request
@@ -39,6 +42,14 @@ $("#search-button").on("click", function(){
         console.log("lat" + lat)
         long = response.coord.lon;
         console.log("long" + long)
+
+        // add temperature data to html
+        $("#city-name-date").text(city + "(" + date.getMonth() +"/" + date.getDate() + "/" + date.getFullYear() + ")")
+        $("#current-temp").text("Temperature: " + temperature + " °F")
+        $("#current-humidity").text("Humidity: " + humidity + "%")
+        $("#current-wind").text("Wind Speed: " + windSpeed + " MPH")
+
+
         // url for second query using coordinates
         secondQueryURL = "https://api.openweathermap.org/data/2.5/uvi?APPID=" + apiKey + "&lat=" + lat +"&lon=" + long;
         console.log(secondQueryURL);
