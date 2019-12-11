@@ -10,10 +10,14 @@
     padding: 10px;
 }
 
-#header-container{
+
+
+#header-div{
     background-color: #343A40;
     color: #ffffff;
     text-align: center;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .row{
