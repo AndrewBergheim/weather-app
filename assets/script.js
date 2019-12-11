@@ -19,6 +19,7 @@ function searchFunction(city){
     let apiKey = "9f3acf47fedf13c0f5ba5b0b771606a7";
     //let city = $("#search-text").val();
     let firstQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey
+    console.log(firstQueryURL)
     let fiveDayQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&APPID=" + apiKey
     let secondQueryURL; // to be filled later
     //this next function is declared here but not called until later (so AJAX requests happen sequentially)
@@ -140,7 +141,7 @@ $("#search-button").on("click", function(){
 
 
 $(".history-button").on("click", function(){
-    let city = $(this).val()
+    let city = $(this).text()
     searchFunction(city)  
 });
 
