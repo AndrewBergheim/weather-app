@@ -37,7 +37,7 @@ function searchFunction(city){
    
     if (citiesArray !== null && citiesArray.indexOf(city) == -1){
     // add search history div for this city
-        let newDiv = $("<div>").attr("class", "history-button");
+        let newDiv = $("<div>").attr("class", "history-button card");
         newDiv.text(city);
         $("#history-div").prepend(newDiv);
     //push city to cities array
@@ -121,7 +121,7 @@ if (localStorage.getItem("searchHistory") == null){
     // initialize array containing search history, then iterate through it to add the history to the page
     var citiesArray = JSON.parse((localStorage.getItem("searchHistory")))
     for (let i = 0; i< citiesArray.length; i++){
-        let newDiv = $("<div>").attr("class", "history-button");
+        let newDiv = $("<div>").attr("class", "history-button card");
         newDiv.text(citiesArray[i]);
         $("#history-div").prepend(newDiv);
     }
@@ -131,6 +131,8 @@ if (localStorage.getItem("lastSearch") !== null){
  // search for most recent searched city
     let lastSearch = localStorage.getItem("lastSearch")
     searchFunction(lastSearch)   
+} else{
+    searchFunction("Tucson")
 }
 
 // Event listeners
