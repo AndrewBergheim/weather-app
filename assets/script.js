@@ -1,12 +1,11 @@
-
-$("#search-button").on("click", function(){
+function searchFunction(){
     // parameter variable initialization
     let temperature;
     let humidity;
     let windSpeed;
     let uvIndex;
     let date = new Date()
-    let currentDate = "(" + date.getMonth() +"/" + date.getDate() + "/" + date.getFullYear() + ")"
+    let currentDate = "(" + (date.getMonth() + 1) +"/" + date.getDate() + "/" + date.getFullYear() + ")"
     //geo variable init
     let lat;
     let long;
@@ -20,7 +19,7 @@ $("#search-button").on("click", function(){
     let firstQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey
     let fiveDayQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&APPID=" + apiKey
     let secondQueryURL; // to be filled later
-    //these next functions are declared here but not called until later (so AJAX requests happen sequentially)
+    //this next function is declared here but not called until later (so AJAX requests happen sequentially)
     
     function UVCall(){
         $.ajax({
@@ -30,9 +29,18 @@ $("#search-button").on("click", function(){
             console.log(response);
             uvIndex = response.value;
             $("#current-UV").text(uvIndex)
-            $
         })
     }
+
+    /* save data to local storage
+    //push city to cities array
+    citiesArray.push(city);
+    // save search history to local storage
+    localStorage.setItem("searchHistory", citiesArray)
+    // save city as last searched
+    localStorage.setItem("lastSearch", city)
+    */
+
     //now make the actual ajax request
     $.ajax({
         url: firstQueryURL,
@@ -75,20 +83,24 @@ $("#search-button").on("click", function(){
         for (let i = 8; i < 41; i += 8){
             let currentSet = response.list[i-1] //uses i-1 due to zero indexing
             let thisDay = $("#forecast-day-" + (i/8))
-            console.log(currentSet)
+            //console.log(currentSet)
             
-            
-            // construct date 
-            futureDateRaw = new Date(Date.now + 1000 * 60 * 60 * 24 * i / 8)
-            futureDateParsed = "(" + futureDateRaw.getMonth() +"/" + futureDateRaw.getDate() + "/" + futureDateRaw.getFullYear() + ")"
+            // construct date (multiplied by 1000 because date is stored in seconds rather than ms)
+            futureDateRaw = new Date(currentSet.dt * 1000) 
 
+            futureDateParsed = "(" + (futureDateRaw.getMonth() + 1 )+"/" + futureDateRaw.getDate() + "/" + futureDateRaw.getFullYear() + ")"
+            console.log(futureDateRaw)
             // add data to children //
-            //thisDay.children(".forecast-date").text(futureDateParsed)
+            thisDay.children(".forecast-date").text(futureDateParsed)
             thisDay.children(".forecast-temp").text("Temp: " + currentSet.main.temp + " °F")
             thisDay.children(".forecast-humidity").text("Humidity: " + currentSet.main.humidity + "%")
         }
 
     })
     
+}
+
+$("#search-button").on("click", function(){
+    searchFunction()  
 });
 
