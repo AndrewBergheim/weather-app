@@ -1,0 +1,14 @@
+#current-uv{
+    background-color: firebrick;
+    color: #ffffff;
+}
+
+#city-data{
+    border: 1px #dddddd;
+}
+
+#header-container{
+    background-color: #343A40;
+    color: #ffffff;
+    text-align: center;
+}

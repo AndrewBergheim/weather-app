@@ -13,7 +13,7 @@ $("#search-button").on("click", function(){
     let city = $("#search-text").val();
     let firstQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey
     let secondQueryURL; // to be filled later
-    //this next function is declared here but not called until later
+    //these next functions are declared here but not called until later (so AJAX requests happen sequentially)
     
     function UVCall(){
         $.ajax({
@@ -42,9 +42,8 @@ $("#search-button").on("click", function(){
         // url for second query using coordinates
         secondQueryURL = "https://api.openweathermap.org/data/2.5/uvi?APPID=" + apiKey + "&lat=" + lat +"&lon=" + long;
         console.log(secondQueryURL);
+        //now for the second call
         UVCall()
-
-    //now for the second call
     })
     
 });
