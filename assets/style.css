@@ -1,14 +1,25 @@
-#current-uv{
+#current-UV{
     background-color: firebrick;
     color: #ffffff;
+    padding: 5px;
 }
 
 #city-data{
-    border: 1px #dddddd;
+    border: 1px solid #dddddd;
+    height: 50%;
+    padding: 5px;
 }
 
 #header-container{
     background-color: #343A40;
     color: #ffffff;
     text-align: center;
+}
+
+.row{
+    margin-bottom: 10px;
+}
+
+.col-md-4{
+    background: #fafafa;
 }
