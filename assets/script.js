@@ -88,7 +88,7 @@ function searchFunction(city){
             // construct date (multiplied by 1000 because date is stored in seconds rather than ms)
             futureDateRaw = new Date(currentSet.dt * 1000) 
 
-            futureDateParsed = "(" + (futureDateRaw.getMonth() + 1 )+"/" + futureDateRaw.getDate() + "/" + futureDateRaw.getFullYear() + ")"
+            futureDateParsed =  (futureDateRaw.getMonth() + 1 )+"/" + futureDateRaw.getDate() + "/" + futureDateRaw.getFullYear()
             console.log(futureDateRaw)
             // add data to children //
             thisDay.children(".forecast-date").text(futureDateParsed)
