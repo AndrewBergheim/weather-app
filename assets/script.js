@@ -1,4 +1,4 @@
-function searchFunction(){
+function searchFunction(city){
     // parameter variable initialization
     let temperature;
     let humidity;
@@ -15,7 +15,7 @@ function searchFunction(){
     let futureDateParsed;
     // variables for ajax request construction
     let apiKey = "9f3acf47fedf13c0f5ba5b0b771606a7";
-    let city = $("#search-text").val();
+    //let city = $("#search-text").val();
     let firstQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey
     let fiveDayQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&APPID=" + apiKey
     let secondQueryURL; // to be filled later
@@ -101,6 +101,7 @@ function searchFunction(){
 }
 
 $("#search-button").on("click", function(){
-    searchFunction()  
+    let city = $("#search-text").val()
+    searchFunction(city)  
 });
 
