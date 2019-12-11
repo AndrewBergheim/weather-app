@@ -23,3 +23,7 @@
 .col-md-4{
     background: #fafafa;
 }
+
+#city-name-date{
+float: left;
+}

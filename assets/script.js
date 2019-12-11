@@ -1,4 +1,3 @@
-
 // search function
 function searchFunction(city){
     // parameter variable initialization
@@ -6,6 +5,7 @@ function searchFunction(city){
     let humidity;
     let windSpeed;
     let uvIndex;
+    let icon;
     let date = new Date()
     let currentDate = "(" + (date.getMonth() + 1) +"/" + date.getDate() + "/" + date.getFullYear() + ")"
     //geo variable init
@@ -59,6 +59,7 @@ function searchFunction(city){
         temperature = response.main.temp;
         humidity = response.main.humidity;
         windSpeed = response.wind.speed;
+        icon = response.weather[0].icon
         //record geo data
         lat = response.coord.lat;
         console.log("lat" + lat)
@@ -66,7 +67,8 @@ function searchFunction(city){
         console.log("long" + long)
 
         // add temperature data to html
-        $("#city-name-date").text(city + " " + currentDate)
+        $("#city-name-date").text(response.name + " " + currentDate)
+        $("#icon-current").attr("src","http://openweathermap.org/img/wn/" + icon + ".png")
         $("#current-temp").text("Temperature: " + temperature + " °F")
         $("#current-humidity").text("Humidity: " + humidity + "%")
         $("#current-wind").text("Wind Speed: " + windSpeed + " MPH")
@@ -91,6 +93,7 @@ function searchFunction(city){
         for (let i = 8; i < 41; i += 8){
             let currentSet = response.list[i-1] //uses i-1 due to zero indexing
             let thisDay = $("#forecast-day-" + (i/8))
+            let thisIcon = "http://openweathermap.org/img/wn/" + currentSet.weather[0].icon + ".png"
             //console.log(currentSet)
             
             // construct date (multiplied by 1000 because date is stored in seconds rather than ms)
@@ -100,6 +103,7 @@ function searchFunction(city){
             console.log(futureDateRaw)
             // add data to children //
             thisDay.children(".forecast-date").text(futureDateParsed)
+            thisDay.children(".forecast-icon").attr("src", thisIcon)
             thisDay.children(".forecast-temp").text("Temp: " + currentSet.main.temp + " °F")
             thisDay.children(".forecast-humidity").text("Humidity: " + currentSet.main.humidity + "%")
         }
